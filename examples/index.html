@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Gnal usage example</title>
+</head>
+<body>
+    <div i18n="uniq_id_for_phrase">This is my initial content</div>
+
+    <button id="btnChangeLang" i18n="i18n_action_btn">Change language</button>
+
+    <script src="../src/gnal.js"></script>
+    <script>
+        ;(function() {
+            const gnal = new Gnal({ useHash: true });
+            let current = 'en';
+            gnal
+                .translations('fr', {
+                    uniq_id_for_phrase: 'Incroyablement petite lib d\'i18n',
+                    i18n_action_btn: 'Changer la langue'
+                })
+                .translations('en', {
+                    uniq_id_for_phrase: 'Awesomely tiny i18n lib',
+                    i18n_action_btn: 'Change language'
+                })
+                .choose(current)
+                .translate();
+
+            document.querySelector('#btnChangeLang').onclick = (e) => {
+                e.preventDefault();
+                current = current === 'fr' ? 'en' : 'fr';
+                gnal.changeTo(current);
+            }
+        })();
+    </script>
+</body>
+</html>
