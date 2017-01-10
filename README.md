@@ -60,6 +60,8 @@ document.querySelector('#btn-es').onclick =
 Register new key values for `idx` language.
 Each key in the `object` must exist in all
 the registered objects (which is not checked)
+if you want to include HTML in your text start
+it with `#!>`
 
 **Kind**: instance method of <code>[Gnal](#Gnal)</code>  
 **Returns**: this to chain methods  

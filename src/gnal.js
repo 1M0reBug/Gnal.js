@@ -51,6 +51,8 @@ class Gnal {
      * Register new key values for `idx` language.
      * Each key in the `object` must exist in all
      * the registered objects (which is not checked)
+     * if you want to include HTML in your text start
+     * it with `#!>`
      * @param {string} idx the index/language ISO code used as language selector
      * @param {Object} object The unique key by phrase
      * @return this to chain methods
@@ -100,7 +102,12 @@ class Gnal {
         const elements = this.container.querySelectorAll('[i18n]');
         for (let i = 0; i < elements.length; i++) {
             const el = elements[i];
-            el.textContent = translation[el.getAttribute('i18n')];
+            const content = translation[el.getAttribute('i18n')].trim();
+            if (content.slice(0, 3) === '#!>') {
+                el.innerHTML = content.slice(3).trim();
+            } else {
+                el.textContent = content;
+            }
         }
 
         if (this.useHash) this.updateHash();

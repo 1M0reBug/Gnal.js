@@ -7,6 +7,8 @@
 <body>
     <div i18n="uniq_id_for_phrase">This is my initial content</div>
 
+    <div i18n="here_lies_html">I contain HTML</div>
+
     <button id="btnChangeLang" i18n="i18n_action_btn">Change language</button>
 
     <script src="../dist/gnal.js"></script>
@@ -17,11 +19,13 @@
             gnal
                 .translations('fr', {
                     uniq_id_for_phrase: 'Incroyablement petite lib d\'i18n',
-                    i18n_action_btn: 'Changer la langue'
+                    i18n_action_btn: 'Changer la langue',
+                    here_lies_html: '#!> <span><ul><li style="color: red">Un peu d\'html</li></ul></span>'
                 })
                 .translations('en', {
                     uniq_id_for_phrase: 'Awesomely tiny i18n lib',
-                    i18n_action_btn: 'Change language'
+                    i18n_action_btn: 'Change language',
+                    here_lies_html: '#!> <span><ul><li style="color: red">Here is some html</li></ul></span>'
                 })
                 .choose(current)
                 .translate();
