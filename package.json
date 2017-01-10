@@ -9,8 +9,7 @@
   "scripts": {
     "build": "webpack",
     "build:prod": "webpack && NODE_ENV=production webpack",
-    "doc": "jsdoc2md -t jsdoc/README.hbs src/*.js > README.md; echo",
-    "postinstall": "npm run build:prod"
+    "doc": "jsdoc2md -t jsdoc/README.hbs src/*.js > README.md; echo"
   },
   "repository": {
     "type": "git",
