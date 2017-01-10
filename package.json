@@ -1,6 +1,6 @@
 {
   "name": "gnal.js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A low impact i18n helper library",
   "main": "dist/gnal.min.js",
   "directories": {
