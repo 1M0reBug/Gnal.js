@@ -1,41 +1,43 @@
 /**
  * This library is a low-impact, no dependency i18n helper.
  * It provides tools to easily translate sites, with a simple JSON
- * object. 
+ * object.
  * It also provides elements to display a hash indicating the translation
- * and helping people to share a translation-aware URL. 
+ * and helping people to share a translation-aware URL.
  */
 class Gnal {
     /**
      * Example
-     * 
-     * ```js 
+     *
+     * ```js
      * const gnal = new Gnal({ useHash: true });
      * gnal
-     *  .translations('en', { GEETINGS: 'hello' })
+     *  .translations('en', { GREETINGS: 'hello' })
      *  .translations('fr', { GREETINGS: 'bonjour' })
      *  .translations('es', { GREETINGS: 'holà' })
      *  .translations('it', { GREETINGS: 'ciao' })
      *  .translations('hu', { GREETINGS: 'szia' })
      *  .choose('en')
      *  .translate();
-     * 
-     * document.querySelector('#btn-es').onclick = 
+     *
+     * document.querySelector('#btn-es').onclick =
      *      e => gnal.changeTo('es');
      * ```
      * @param {string} [mainContainer] optional container element where
-     * the translation takes place 
+     * the translation takes place
      * @param {Object} options some configuration options
-     * @param {boolean} options.hasHash if it must use the hash or not.
+     * @param {boolean} options.useHash if it must use the hash or not.
      */
-    constructor (mainContainer, options) { 
+    constructor(_mainContainer, _options) {
+        let mainContainer = _mainContainer;
+        let options = _options;
         if (typeof mainContainer === 'object') {
             options = mainContainer;
             mainContainer = undefined;
         }
         options = options || {};
         this.container = mainContainer
-                        ? document.querySelector(`#${mainContainer}`) 
+                        ? document.querySelector(`#${mainContainer}`)
                         : document.querySelector('body');
         this.useHash = options.useHash || false;
 
@@ -47,11 +49,11 @@ class Gnal {
     }
     /**
      * Register new key values for `idx` language.
-     * Each key in the `object` must exist in all 
+     * Each key in the `object` must exist in all
      * the registered objects (which is not checked)
      * @param {string} idx the index/language ISO code used as language selector
      * @param {Object} object The unique key by phrase
-     * @return this to chain methods 
+     * @return this to chain methods
      */
     translations(idx, object) {
         this.translations[idx] = object;
@@ -65,13 +67,16 @@ class Gnal {
      * @return this to chain methods
      */
     choose(idx) {
-        if (!this.translations.hasOwnProperty(idx) ||
-            !this.translations.hasOwnProperty(this.preferredLanguage)) {
+        const hasCurrentProperty = Object.prototype.hasOwnProperty.call(this.translations, idx);
+        const hasCurrentLangage =
+            Object.prototype.hasOwnProperty.call(this.translations, this.preferredLanguage);
+
+        if (!hasCurrentProperty) {
+            // eslint-disable-next-line
             console.error('You must choose one of ' +
                 Object.keys(this.translations));
         }
-        if (this.useHash &&
-            this.translations.hasOwnProperty(this.preferredLanguage)) {
+        if (this.useHash && hasCurrentLangage) {
             return this;
         }
 
@@ -84,12 +89,14 @@ class Gnal {
      * @throws {Error} if translations or choose haven't been called
      */
     translate() {
-        if (! this.preferredLanguage)
+        if (!this.preferredLanguage) {
             throw Error('please choose a language to display, see #choose()');
-        if (! this.translations)
+        }
+        if (!this.translations) {
             throw Error('please register translations, see #translations()');
+        }
 
-        const translation = this.translations[this.preferredLanguage]
+        const translation = this.translations[this.preferredLanguage];
         const elements = this.container.querySelectorAll('[i18n]');
         for (let i = 0; i < elements.length; i++) {
             const el = elements[i];
@@ -101,11 +108,13 @@ class Gnal {
     /**
      * change the displayed language for a new one. the behaviour is to change
      * the language and call translate
-     * @param {string} idx the new language to display 
+     * @param {string} idx the new language to display
      */
     changeTo(idx) {
-        if (!this.translations.hasOwnProperty(idx)) {
-            throw new Error('You can\'t change to a non existant language, use one of ' + 
+        const hasCurrentProperty = Object.prototype.hasOwnProperty.call(this.translations, idx);
+        if (!hasCurrentProperty) {
+            // eslint-disable-next-line
+            throw new Error('You can\'t change to a non existant language, use one of ' +
                 Object.keys(this.translations));
         }
 
@@ -118,6 +127,8 @@ class Gnal {
      * Change the hash by appending the current lang code to the URL
      */
     updateHash() {
-        window.location.hash = `#/${this.preferredLanguage}`
+        window.location.hash = `#/${this.preferredLanguage}`;
     }
 }
+
+export default Gnal;

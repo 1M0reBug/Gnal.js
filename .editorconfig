@@ -1,0 +1,19 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 4
+indent_style = space
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[package.json]
+indent_size = 2
+
+[node_modules/**]
+trim_trailing_whitespace = ignore
+indent_style = ignore
+indent_size = ignore
+end_of_line = ignore
+insert_final_newline = ignore

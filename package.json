@@ -1,0 +1,59 @@
+{
+  "name": "gnal.js",
+  "version": "0.0.2",
+  "description": "A low impact i18n helper library",
+  "main": "dist/gnal.min.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "build": "webpack",
+    "build:prod": "webpack && NODE_ENV=production webpack",
+    "doc": "jsdoc2md -t jsdoc/README.hbs -c jsdoc/jsdoc.conf.json src/*js > README.md; echo",
+    "postinstall": "npm run build:prod"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1M0reBug/Gnal.js.git"
+  },
+  "keywords": [
+    "i18n"
+  ],
+  "author": "jqgl",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/1M0reBug/Gnal.js/issues"
+  },
+  "homepage": "https://github.com/1M0reBug/Gnal.js#readme",
+  "devDependencies": {
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-es2015": "^6.18.0",
+    "eslint": "^3.13.0",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.8.0",
+    "jsdoc-to-markdown": "^2.0.1",
+    "webpack": "^1.14.0"
+  },
+  "eslintConfig": {
+    "extends": "airbnb",
+    "env": {
+      "browser": true
+    },
+    "rules": {
+      "indent": [
+        "error",
+        4
+      ],
+      "no-plusplus": [
+        "error",
+        {
+          "allowForLoopAfterthoughts": true
+        }
+      ]
+    }
+  }
+}
