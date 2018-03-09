@@ -37,14 +37,15 @@ class Gnal {
         }
         options = options || {};
         this.container = mainContainer
-                        ? document.querySelector(`#${mainContainer}`)
-                        : document.querySelector('body');
+            ? document.querySelector(`#${mainContainer}`)
+            : document.querySelector('body');
         this.useHash = options.useHash || false;
 
         if (this.useHash) {
-            this.preferredLanguage = window.location.hash
-                                        .replace('#', '')
-                                        .replace('/', '');
+            this.preferredLanguage =
+                window.location.hash
+                    .replace('#', '')
+                    .replace('/', '');
         }
     }
     /**
