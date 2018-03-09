@@ -1,6 +1,5 @@
 /* eslint-env jest */
 
-const { mount, el } = require('redom');
 const Gnal = require('../gnal').default;
 
 const translations = {
@@ -8,14 +7,33 @@ const translations = {
     en: { TO_TRANSLATE: 'this is a translation' },
 };
 
+/**
+ * before each test we add some DOM nodes
+ *
+ * ```
+ * <body>
+ *   <div id="main">
+ *     <p i18n="TO_TRANSLATE">placeholder</p>
+ *   </div>
+ * </body>
+ * ```
+ */
 beforeEach(() => {
-    mount(
-        document.body,
-        el(
-            'div#main',
-            el('p', { i18n: 'TO_TRANSLATE' }, 'placeholder'),
-        ),
+    const div = Object.assign(
+        document.createElement('div'),
+        { id: 'main' },
     );
+    const p = Object.assign(
+        document.createElement('p'),
+        { innerText: 'placeholder' },
+    );
+    p.setAttribute('i18n', 'TO_TRANSLATE');
+
+    [div, p]
+        .reduce((node, child) => {
+            node.appendChild(child);
+            return child;
+        }, document.body);
 });
 
 describe('update inner content', () => {
